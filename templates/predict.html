@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Main Card Styling */
+    .prediction-card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .prediction-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header.bg-gradient {
+        background: linear-gradient(135deg, #1e7e34, #199d6b) !important;
+        border-bottom: none;
+    }
+
+    /* Tab Styling */
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: white;
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px 8px 0 0;
+        margin-right: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Section Styling */
+    .animated-border {
+        position: relative;
+        border-radius: 12px;
+        padding: 1.5rem;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+    }
+
+    .animated-border::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid transparent;
+        border-radius: inherit;
+        background: linear-gradient(45deg, #1e7e34, #199d6b, #1e7e34) border-box;
+        background-size: 200% 200%;
+        animation: gradientBorder 3s linear infinite;
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    @keyframes gradientBorder {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Button Styling */
+    .btn-gradient {
+        background: linear-gradient(45deg, #1e7e34, #199d6b);
+        border: none;
+        color: white;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(30, 126, 52, 0.4);
+        color: white;
+    }
+
+    .btn-gradient:active {
+        transform: translateY(1px);
+    }
+
+    /* Form Control Styling */
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #199d6b;
+        box-shadow: 0 0 0 0.25rem rgba(25, 157, 107, 0.25);
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-radius: 8px 0 0 8px;
+        border-right: none;
+    }
+
+    /* Section Headers */
+    h5.text-center {
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: 1.5rem;
+        color: #1e7e34;
+    }
+
+    h5.text-center::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #1e7e34, #199d6b);
+        border-radius: 3px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .nav-tabs .nav-link {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-gradient {
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .animated-border {
+            padding: 1rem;
+        }
+    }
+
+    /* Animation for Form Elements */
+    .form-group {
+        transition: all 0.3s ease;
+    }
+
+    .form-group:hover {
+        transform: translateX(5px);
+    }
+</style>
+<body class="dash">
+    
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card prediction-card mb-5 animate__animated animate__fadeInUp">
+            <div class="card-header bg-gradient text-white">
+                <h3 class="mb-0"><i class="fas fa-calculator me-2"></i>Crop Prediction</h3>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs mb-4" id="predictionTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="crop-tab" data-bs-toggle="tab" data-bs-target="#crop-type"
+                            type="button" style="background-color: #199d6b;">
+                            <i class="fas fa-seedling me-1"></i>Crop Type
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="yield-tab" data-bs-toggle="tab" data-bs-target="#crop-yield"
+                            type="button" style="background-color:#1e7e34">
+                            <i class="fas fa-chart-line me-1"></i>Crop Yield
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="predictionTabContent">
+                    <!-- Crop Type Prediction Form -->
+                    <div class="tab-pane fade show active" id="crop-type" role="tabpanel">
+                        <form method="POST" action="{{ url_for('predict') }}">
+                            <input type="hidden" name="prediction_type" value="crop_type">
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="animated-border p-3 mb-4">
+                                        <h5 class="text-center mb-3"><i class="fas fa-flask me-2"></i>Soil Nutrients
+                                        </h5>
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <label for="nitrogen" class="form-label">Nitrogen (N)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="nitrogen" name="nitrogen" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phosphorus" class="form-label">Phosphorus (P)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="phosphorus" name="phosphorus" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="potassium" class="form-label">Potassium (K)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="potassium" name="potassium" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ph" class="form-label">pH Level</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" min="0" max="14"
+                                                        class="form-control" id="ph" name="ph" required>
+                                                    <span class="input-group-text">pH</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="animated-border p-3 mb-4">
+                                        <h5 class="text-center mb-3"><i class="fas fa-cloud-sun me-2"></i>Weather
+                                            Conditions</h5>
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <label for="temperature" class="form-label">Temperature</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="temperature" name="temperature" required>
+                                                    <span class="input-group-text">°C</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="humidity" class="form-label">Humidity</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="humidity" name="humidity" required>
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="rainfall" class="form-label">Rainfall</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="rainfall" name="rainfall" required>
+                                                    <span class="input-group-text">mm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="animated-border p-3 mb-4">
+                                        <h5 class="text-center mb-3"><i class="fas fa-map-marker-alt me-2"></i>Location
+                                        </h5>
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <label for="latitude" class="form-label">Latitude</label>
+                                                <input type="number" step="0.000000000001" class="form-control"
+                                                    id="latitude" name="latitude" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="longitude" class="form-label">Longitude</label>
+                                                <input type="number" step="0.000000000001" class="form-control"
+                                                    id="longitude" name="longitude" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="location" class="form-label">Region</label>
+                                                <select class="form-select" id="location" name="location" required>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center mt-3">
+                                    <button type="submit"
+                                        class="btn btn-gradient btn-lg px-5 py-3 animate__animated animate__pulse animate__infinite">
+                                        <i class="fas fa-seedling me-2"></i>Predict Crop Type
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Crop Yield Prediction Form -->
+                    <div class="tab-pane fade" id="crop-yield" role="tabpanel">
+                        <form method="POST" action="{{ url_for('predict') }}">
+                            <input type="hidden" name="prediction_type" value="yield">
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="animated-border p-3 mb-4">
+                                        <h5 class="text-center mb-3"><i class="fas fa-tractor me-2"></i>Agricultural
+                                            Inputs</h5>
+                                        <div class="row g-2">
+                                            <div class="col-12">
+                                                <label for="fertilizer" class="form-label">Fertilizer</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="fertilizer" name="fertilizer" required>
+                                                    <span class="input-group-text">kg/acre</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="animated-border p-3 mb-4">
+                                        <h5 class="text-center mb-3"><i class="fas fa-flask me-2"></i>Soil Nutrients
+                                        </h5>
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <label for="nitrogen" class="form-label">Nitrogen (N)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="nitrogen" name="nitrogen" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nitrogen" class="form-label">Temperature</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="temperature" name="temperature" required>
+                                                    <span class="input-group-text">c</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phosphorus" class="form-label">Phosphorus (P)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="phosphorus" name="phosphorus" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="potassium" class="form-label">Potassium (K)</label>
+                                                <div class="input-group">
+                                                    <input type="number" step="0.000000000001" class="form-control"
+                                                        id="potassium" name="potassium" required>
+                                                    <span class="input-group-text">ppm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center mt-3">
+                                    <button type="submit"
+                                        class="btn btn-gradient btn-lg px-5 py-3 animate__animated animate__pulse animate__infinite">
+                                        <i class="fas fa-chart-line me-2"></i>Predict Crop Yield
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

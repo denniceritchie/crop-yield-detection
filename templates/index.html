@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<!-- <section class="hero-section bg-gradient text-white text-center py-5 mb-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">
+                    <i class="fas fa-leaf me-3"></i>Smart Crop Prediction System
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+                    Harnessing AI to revolutionize agriculture with accurate crop type and yield predictions
+                </p>
+                <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="{{ url_for('login') }}" class="btn btn-light btn-lg px-4 py-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg px-4 py-3">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- Hero Section -->
+<section class="hero-section text-center py-5 mb-5" style="background:url(./static/sunny-meadow-landscape_1112-134.avif); width: 100; background-size: cover; height: 80vh;border-radius: 20px">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown text-black">
+                    <i class="fas fa-leaf me-3"></i>Smart Crop Prediction System
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s text-back">
+                    Harnessing AI to revolutionize agriculture with accurate crop type and yield predictions
+                </p>
+                <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="{{ url_for('login') }}" class="btn btn-success btn-lg px-4 py-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-success btn-lg px-4 py-3">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section -->
+<section class="features-section mb-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="card prediction-card h-100 animate__animated animate__fadeInLeft">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-4">
+                            <i class="fas fa-seedling fa-4x text-gradient"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Crop Type Prediction</h3>
+                        <p class="text-muted">
+                            Our advanced LSTM model predicts the optimal crop for your soil and climate conditions with 92% accuracy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="card prediction-card h-100 animate__animated animate__fadeInUp">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-4">
+                            <i class="fas fa-chart-line fa-4x text-gradient"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Yield Estimation</h3>
+                        <p class="text-muted">
+                            Get precise yield predictions in quintals per acre based on your agricultural inputs and environmental factors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="card prediction-card h-100 animate__animated animate__fadeInRight">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-4">
+                            <i class="fas fa-history fa-4x text-gradient"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Prediction History</h3>
+                        <p class="text-muted">
+                            Track all your previous predictions and analyze results through your personalized dashboard.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works mb-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4 animate__animated animate__fadeIn">
+                    <i class="fas fa-cogs me-3"></i>How It Works
+                </h2>
+                <div class="border-gradient mx-auto mb-4"></div>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Step 1 -->
+            <div class="col-lg-4">
+                <div class="card prediction-card h-100">
+                    <div class="card-body p-4">
+                        <div class="step-number mb-3">
+                            <span class="bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                1
+                            </span>
+                        </div>
+                        <h3 class="h4 mb-3">Create Account</h3>
+                        <p class="text-muted">
+                            Register for a free account to access all prediction features and save your results.
+                        </p>
+                        <div class="step-arrow d-none d-lg-block">
+                            <i class="fas fa-arrow-right text-gradient fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="col-lg-4">
+                <div class="card prediction-card h-100">
+                    <div class="card-body p-4">
+                        <div class="step-number mb-3">
+                            <span class="bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                2
+                            </span>
+                        </div>
+                        <h3 class="h4 mb-3">Enter Parameters</h3>
+                        <p class="text-muted">
+                            Provide soil nutrients, weather conditions, and location details through our intuitive interface.
+                        </p>
+                        <div class="step-arrow d-none d-lg-block">
+                            <i class="fas fa-arrow-right text-gradient fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="col-lg-4">
+                <div class="card prediction-card h-100">
+                    <div class="card-body p-4">
+                        <div class="step-number mb-3">
+                            <span class="bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                3
+                            </span>
+                        </div>
+                        <h3 class="h4 mb-3">Get Predictions</h3>
+                        <p class="text-muted">
+                            Receive instant AI-powered recommendations for optimal crop selection and yield estimates.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section mb-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4">
+                    <i class="fas fa-quote-left me-3"></i>What Farmers Say
+                </h2>
+                <div class="border-gradient mx-auto mb-4"></div>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Testimonial 1 -->
+            <div class="col-md-6">
+                <div class="card prediction-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle me-3" width="60" height="60" alt="Testimonial">
+                            <div>
+                                <h5 class="mb-1">Rajesh Kumar</h5>
+                                <p class="text-muted small mb-0">Punjab, Wheat Farmer</p>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            "The crop type prediction helped me switch to more profitable crops. My income increased by 30% last season!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="col-md-6">
+                <div class="card prediction-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle me-3" width="60" height="60" alt="Testimonial">
+                            <div>
+                                <h5 class="mb-1">Priya Sharma</h5>
+                                <p class="text-muted small mb-0">Kerala, Spice Farmer</p>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            "Yield predictions were within 5% of actual harvest. Incredibly accurate for planning my storage and sales."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section bg-gradient text-white py-5">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4">Ready to Transform Your Farming?</h2>
+                <p class="lead mb-5">Join thousands of farmers making data-driven decisions for better harvests.</p>
+                <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-5 py-3 animate__animated animate__pulse animate__infinite">
+                    <i class="fas fa-user-plus me-2"></i>Get Started Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

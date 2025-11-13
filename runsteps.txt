@@ -1,0 +1,4 @@
+1.open anaconda prompt
+2.activate myenv
+3.cd (Your project folder path)
+4.python app.py
